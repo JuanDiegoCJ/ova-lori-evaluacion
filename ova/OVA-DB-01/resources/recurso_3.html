@@ -103,339 +103,58 @@ html{scroll-behavior:auto}}
 </style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="genova-engine" content="template:explain:2">
-<meta name="genova-engine-params" content="{&quot;params&quot;: {&quot;num_sections&quot;: 5}, &quot;review&quot;: {&quot;found&quot;: 0, &quot;fixed&quot;: 0, &quot;extra_s&quot;: 3.8}}">
-<title>Lectura Guiada: Copia de seguridad y Recuperación de la BD Nivel educativo: universitario (ciclos iniciales)</title>
+<meta name="genova-engine" content="template:evaluate:1">
+<meta name="genova-engine-params" content="{&quot;params&quot;: {&quot;num_questions&quot;: 10}, &quot;review&quot;: {&quot;found&quot;: 0, &quot;fixed&quot;: 0, &quot;extra_s&quot;: 3.6}}">
+<title>Quiz Interactivo: Copia de Seguridad y Backup Nivel educativo: universitario (ciclos avanzados)</title>
 <!--genova-package-theme--><style id="genova-package-theme">:root{--bg:#F7F9FC !important;--surface:#FFFFFF !important;--surface-tint:#EAF0FB !important;--surface-2:#F8FAFC !important;--primary:#0A3D91 !important;--primary-hover:#072C6B !important;--accent:#F47A20 !important;--accent-hover:#D9650F !important;--accent-tint:#FDEEE0 !important;--action:#B84B00 !important;--action-hover:#923B00 !important;--text:#15233B !important;--text-muted:#52617A !important;--border:#94A3B8 !important;--success:#146C49 !important;--danger:#B42332 !important;--radius:14px !important;--success-bg:#EAF7F1 !important;--danger-bg:#FBEDED !important;--warning:#92400E !important;--warning-bg:#FFFBEB !important;--info:#0369A1 !important;--info-bg:#E0F2FE !important;--shadow:0 6px 20px rgba(10,61,145,.08) !important;--font-body:system-ui,-apple-system,"Segoe UI",Arial,sans-serif !important;--font-display:var(--font-body) !important;--font-mono:ui-monospace,Menlo,monospace !important;--on-primary:#FFFFFF !important;--on-action:#FFFFFF !important;--space-1:8px !important;--space-2:12px !important;--space-3:16px !important;--space-4:24px !important;--space-5:32px !important;--space-6:48px !important;--muted:#52617A !important;--focus:#0A3D91 !important;--foreground:#15233B !important;}body{font-family:var(--font-body)}.ova-option.is-correct,.ova-feedback--ok{background:var(--success-bg)}.ova-option.is-wrong,.ova-feedback--bad{background:var(--danger-bg)}</style><!--/genova-package-theme--></head>
 <body>
 <main class="ova-container ova-stack">
 
 <style>
-.ova-reading-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.ova-card {
-  background: var(--surface, #FFFFFF);
-  border: 1px solid var(--border, #E2E8F0);
-  border-radius: var(--radius, 12px);
-  padding: clamp(16px, 3vw, 24px);
-  box-shadow: var(--shadow, 0 2px 8px rgba(0,0,0,.04));
-}
-.intro-card {
-  border-left: 4px solid var(--primary, #0A3D91);
-}
-.card-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-.badge-tag {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--primary, #0A3D91);
-  background: var(--surface-tint, #EEF2FF);
-  padding: 3px 8px;
-  border-radius: 4px;
-}
-.card-title {
-  margin: 0 0 10px;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--primary, #0A3D91);
-}
-.card-body-text {
-  margin: 0;
-  font-size: 0.98rem;
-  line-height: 1.65;
-  color: var(--text, #1E293B);
-}
-
-.reading-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 12px 16px;
-  background: var(--surface-tint, #F0F4FA);
-  border: 1px solid var(--border, #E2E8F0);
-  border-radius: var(--radius-sm, 8px);
-}
-.toolbar-hint {
-  font-size: 0.88rem;
-  color: var(--text-muted, #64748B);
-  font-weight: 500;
-}
-.btn-toggle-all {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
-  background: var(--surface, #FFFFFF);
-  color: var(--primary, #0A3D91);
-  border: 1.5px solid var(--primary, #0A3D91);
-  border-radius: var(--radius-sm, 8px);
-  font-family: inherit;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  min-height: 44px;
-  transition: all 0.2s ease;
-  touch-action: manipulation;
-}
-.btn-toggle-all:hover {
-  background: var(--primary, #0A3D91);
-  color: #FFFFFF;
-}
-.btn-toggle-all:focus-visible {
-  outline: 3px solid var(--action, #F47A20);
-  outline-offset: 2px;
-}
-
-.sec-body {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding-top: 6px;
-}
-.sec-card {
-  border-radius: var(--radius-sm, 8px);
-  padding: 14px 16px;
-  border: 1px solid var(--border, #E2E8F0);
-}
-.sec-card-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-.sec-card-tag {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: 4px;
-  padding: 2px 7px;
-}
-.tag-idea {
-  color: var(--primary, #0A3D91);
-  background: var(--surface-tint, #E0E7FF);
-}
-.tag-ejemplo {
-  color: var(--info, #0369A1);
-  background: var(--info-bg, #E0F2FE);
-}
-.tag-pregunta {
-  color: var(--warning, #B45309);
-  background: var(--warning-bg, #FEF3C7);
-}
-
-.sec-idea-card {
-  background: var(--surface-tint, #F0F4FA);
-  border-left: 4px solid var(--primary, #0A3D91);
-}
-.sec-ejemplo-card {
-  background: var(--surface-2, #F8FAFC);
-  border-left: 4px solid #0284C7;
-}
-.sec-check-card {
-  background: var(--warning-bg, #FFFDF5);
-  border-left: 4px solid var(--action, #F47A20);
-}
-.sec-text {
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text, #1E293B);
-}
-.sec-question {
-  margin: 0 0 12px;
-  font-size: 0.98rem;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--text, #1E293B);
-}
-.sec-model-ans {
-  font-size: 0.92rem;
-  line-height: 1.6;
-}
-.sec-model-ans strong {
-  display: block;
-  color: var(--primary, #0A3D91);
-  margin-bottom: 4px;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.sec-model-ans p {
-  margin: 0;
-}
-
-.dba-panel {
-  border: 2px solid var(--primary, #0A3D91);
-  background: linear-gradient(180deg, var(--surface, #FFFFFF) 0%, var(--surface-tint, #F8FAFC) 100%);
-}
-.dba-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-.dba-icon-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: var(--primary, #0A3D91);
-  color: #FFFFFF;
-  font-size: 1.25rem;
-  flex-shrink: 0;
-}
-.dba-eyebrow {
-  display: block;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--action, #F47A20);
-  margin-bottom: 2px;
-}
-.dba-title {
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--primary, #0A3D91);
-}
-.dba-body {
-  font-size: 0.96rem;
-  line-height: 1.65;
-  color: var(--text, #1E293B);
-}
-.dba-body p {
-  margin: 0 0 12px;
-}
-.dba-tip {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px 14px;
-  background: var(--surface-tint, #EEF2FF);
-  border-radius: var(--radius-sm, 8px);
-  border: 1px dashed var(--primary, #0A3D91);
-  font-size: 0.88rem;
-  color: var(--primary, #0A3D91);
-}
-.dba-tip-icon {
-  flex-shrink: 0;
-  font-size: 1.1rem;
-}
+.ev-card{background:var(--surface,#fff);border:1px solid var(--border,#cbd5e1);border-radius:var(--radius,12px);padding:var(--space-3,16px)}
+.ev-card.is-ok{border-color:var(--success,#1a7f4b)}
+.ev-card.is-bad{border-color:var(--danger,#c0392b)}
+.ev-badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 10px;border-radius:999px;background:var(--surface-tint,#eef2ff);color:var(--primary,#0A3D91)}
+.ev-q{font-size:1.05rem;font-weight:700;margin:var(--space-1,8px) 0 var(--space-2,12px);overflow-wrap:anywhere}
+.ev-opts{display:grid;gap:var(--space-2,12px)}
+.ev-opt{display:flex;gap:var(--space-2,12px);align-items:flex-start;text-align:left;width:100%;padding:var(--space-2,12px) var(--space-3,16px);border:2px solid var(--border,#cbd5e1);border-radius:var(--radius,12px);background:var(--surface,#fff);color:var(--text,#1b2437);font:inherit;cursor:pointer;min-height:44px}
+.ev-opt:hover:not(:disabled){border-color:var(--primary,#0A3D91);background:var(--surface-tint,#eef2ff)}
+.ev-opt:focus-visible,.ev-btn:focus-visible,.ev-in:focus-visible,.ev-sel:focus-visible,.ev-cell:focus-visible{outline:3px solid var(--primary,#0A3D91);outline-offset:2px}
+.ev-opt[aria-pressed="true"]{border-color:var(--primary,#0A3D91);background:var(--surface-tint,#eef2ff)}
+.ev-opt.is-ok{border-color:var(--success,#1a7f4b);background:rgba(26,127,75,.10)}
+.ev-opt.is-bad{border-color:var(--danger,#c0392b);background:rgba(192,57,43,.10)}
+.ev-opt:disabled{cursor:default}
+.ev-key{flex:none;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--primary,#0A3D91);color:#fff;font-weight:700;font-size:.85rem}
+.ev-fb{margin-top:var(--space-2,12px);padding:var(--space-2,12px);border-left:4px solid var(--accent,#F47A20);background:var(--surface-tint,#eef2ff);border-radius:0 8px 8px 0;overflow-wrap:anywhere}
+.ev-fb.is-ok{border-left-color:var(--success,#1a7f4b)}
+.ev-fb.is-bad{border-left-color:var(--danger,#c0392b)}
+.ev-fb[hidden]{display:none}
+.ev-row{display:flex;flex-wrap:wrap;gap:var(--space-2,12px);align-items:center}
+.ev-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 20px;border-radius:10px;border:2px solid var(--primary,#0A3D91);background:var(--primary,#0A3D91);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.ev-btn.is-ghost{background:transparent;color:var(--primary,#0A3D91)}
+.ev-btn:disabled{opacity:.4;cursor:not-allowed}
+.ev-hud{display:flex;flex-wrap:wrap;gap:var(--space-2,12px);align-items:center;justify-content:space-between;padding:var(--space-2,12px) var(--space-3,16px);background:var(--surface-tint,#eef2ff);border:1px solid var(--border,#cbd5e1);border-radius:var(--radius,12px)}
+.ev-in{width:100%;min-width:0;padding:10px 12px;border:2px solid var(--border,#cbd5e1);border-radius:10px;font:inherit;background:var(--surface,#fff);color:var(--text,#1b2437)}
+.ev-bar{height:10px;border-radius:999px;background:var(--surface-tint,#eef2ff);border:1px solid var(--border,#cbd5e1);overflow:hidden}
+.ev-bar>span{display:block;height:100%;width:0;background:var(--accent,#F47A20);transition:width .4s ease}
+.ev-result{text-align:center}
+.ev-big{font-size:2.2rem;font-weight:800;color:var(--primary,#0A3D91);line-height:1.1}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
-<style>
-.ova-image-figure {
-  margin: 16px 0;
-  text-align: center;
-  background: var(--surface-2, #F8FAFC);
-  border: 1px solid var(--border, #E2E8F0);
-  border-radius: var(--radius, 12px);
-  padding: 12px;
-  overflow: hidden;
-}
-.ova-figure-img {
-  max-width: 100%;
-  height: auto;
-  max-height: 420px;
-  border-radius: 8px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
-.ova-image-credit {
-  margin-top: 8px;
-  font-size: 0.78rem;
-  color: var(--text-muted, #64748B);
-}
-.ova-image-credit a {
-  color: inherit;
-  text-decoration: underline;
-}
-.ova-credits-section {
-  margin-top: 28px;
-  padding: 16px;
-  background: var(--surface-2, #F8FAFC);
-  border: 1px solid var(--border, #E2E8F0);
-  border-radius: var(--radius, 8px);
-  font-size: 0.85rem;
-}
-.ova-credits-section h4 {
-  margin: 0 0 8px;
-  font-size: 0.95rem;
-  color: var(--primary, #0A3D91);
-}
-.ova-credits-section p {
-  margin: 0;
-  color: var(--text-muted, #475569);
-}
-</style>
-
-<div class="ova-reading-container">
-  <upao-header eyebrow="LECTURA GUIADA" title="Respaldo y Recuperación de Bases de Datos">
-    <p>Lectura analítica estructurada: explora cada sección conceptual, analiza el ejemplo razonado y comprueba tu comprensión.</p>
-  </upao-header>
-
-  <upao-progress id="prog" current="0" total="5" label="Progreso de la lectura" show-fraction></upao-progress>
-
-  <section class="ova-card intro-card" aria-labelledby="intro-heading">
-    <div class="card-badge">
-      <span class="badge-tag">Contexto y Motivación</span>
-    </div>
-    <h2 id="intro-heading" class="card-title">Introducción al Caso Real</h2>
-    <p class="card-body-text">Imagina que el servidor de tu universidad sufre un fallo y se pierden todas las calificaciones. Sin una copia de seguridad, el caos sería total. Las copias de seguridad son la red de seguridad que evita desastres.</p>
-    <figure class="ova-image-figure"><img class="ova-figure-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cmVjdCBmaWxsPSIjZTJlOGYwIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIvPjx0ZXh0IHg9IjI1NiIgeT0iMjY2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ3NTU2OSI+SW1hZ2VuIG5vIGRpc3BvbmlibGU8L3RleHQ+PC9zdmc+" alt="Diagrama de flujo que muestra el proceso de respaldo periódico y la recuperación ante un fallo, con flechas que conectan la base de datos activa, el almacenamiento de respaldo y la restauración." loading="lazy"></figure>
-  </section>
-
-  <div class="reading-toolbar" role="region" aria-label="Controles de lectura">
-    <span class="toolbar-hint">Despliega cada sección para avanzar en la lectura y comprobar respuestas.</span>
-    <button type="button" id="btn-toggle-all" class="btn-toggle-all" aria-expanded="false">
-      <span id="toggle-all-icon" class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M4 4h5.5l2 2H19a1 1 0 0 1 1 1v2H8.2a1 1 0 0 0-.95.68L4 19.5zM9.2 11H22l-3 8.3a1 1 0 0 1-.95.7H4z"/></svg></span>
-      <span id="toggle-all-text">Abrir todas las secciones</span>
-    </button>
-  </div>
-
-  <div class="reading-sections" role="region" aria-label="Secciones de la lectura guiada">
-    <upao-node id="sec-node-1" data-idx="1" number="1" title="¿Qué es una Copia de Seguridad?" label="Sección 1"><div class="sec-body"><div class="sec-card sec-idea-card"><div class="sec-card-header"><span class="sec-card-tag tag-idea" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2zM9 20h6v2H9z"/></svg> Idea Central</span></div><p class="sec-text">Es una copia de los datos de la base en un medio externo, que permite restaurar la información original en caso de pérdida, error o desastre.</p></div><div class="sec-card sec-ejemplo-card"><div class="sec-card-header"><span class="sec-card-tag tag-ejemplo" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M10 3a7 7 0 1 0 4.2 12.6l5.1 5.1 1.4-1.4-5.1-5.1A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg> Ejemplo Razonado</span></div><p class="sec-text">Como cuando haces una copia de tus apuntes en un USB: si pierdes el cuaderno, puedes recuperar la información desde el USB.</p></div><div class="sec-card sec-check-card"><div class="sec-card-header"><span class="sec-card-tag tag-pregunta" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 15h2v2h-2zm1-11a3.5 3.5 0 0 1 1.4 6.7c-.6.3-.9.7-.9 1.3h-2c0-1.4.8-2.2 1.6-2.7A1.5 1.5 0 1 0 10.5 9.5h-2A3.5 3.5 0 0 1 12 6z"/></svg> Comprobación de Aprendizaje</span></div><p class="sec-question">¿Por qué no basta con guardar los datos en el mismo disco del servidor?</p><upao-reveal class="sec-reveal" data-sec="1" label="Comprobar respuesta modelo" icon="✓"><div class="sec-model-ans"><strong>Respuesta modelo fundamentada:</strong><p>Porque si falla el disco, se pierden tanto los datos originales como la copia. Debe estar en un medio separado y seguro.</p></div></upao-reveal></div></div></upao-node><upao-node id="sec-node-2" data-idx="2" number="2" title="Tipos de Copias de Seguridad" label="Sección 2"><div class="sec-body"><div class="sec-card sec-idea-card"><div class="sec-card-header"><span class="sec-card-tag tag-idea" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2zM9 20h6v2H9z"/></svg> Idea Central</span></div><p class="sec-text">Existen copias completas, incrementales y diferenciales. La completa copia todo; la incremental solo lo cambiado desde la última; la diferencial, lo cambiado desde la última completa.</p></div><div class="sec-card sec-ejemplo-card"><div class="sec-card-header"><span class="sec-card-tag tag-ejemplo" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M10 3a7 7 0 1 0 4.2 12.6l5.1 5.1 1.4-1.4-5.1-5.1A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg> Ejemplo Razonado</span></div><p class="sec-text">Una copia completa cada domingo, una incremental cada noche, y una diferencial cada mediodía. Así optimizas tiempo y espacio.</p></div><div class="sec-card sec-check-card"><div class="sec-card-header"><span class="sec-card-tag tag-pregunta" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 15h2v2h-2zm1-11a3.5 3.5 0 0 1 1.4 6.7c-.6.3-.9.7-.9 1.3h-2c0-1.4.8-2.2 1.6-2.7A1.5 1.5 0 1 0 10.5 9.5h-2A3.5 3.5 0 0 1 12 6z"/></svg> Comprobación de Aprendizaje</span></div><p class="sec-question">¿Qué tipo de copia usarías para minimizar el tiempo de respaldo diario pero aun así recuperar rápido?</p><upao-reveal class="sec-reveal" data-sec="2" label="Comprobar respuesta modelo" icon="✓"><div class="sec-model-ans"><strong>Respuesta modelo fundamentada:</strong><p>Una incremental diaria, porque solo guarda cambios recientes, aunque la recuperación requiere la última completa y todas las incrementales.</p></div></upao-reveal></div></div></upao-node><upao-node id="sec-node-3" data-idx="3" number="3" title="Estrategias de Respaldo y RPO/RTO" label="Sección 3"><div class="sec-body"><div class="sec-card sec-idea-card"><div class="sec-card-header"><span class="sec-card-tag tag-idea" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2zM9 20h6v2H9z"/></svg> Idea Central</span></div><p class="sec-text">El RPO (objetivo de punto de recuperación) define la pérdida máxima aceptable de datos; el RTO (tiempo de recuperación) es el tiempo máximo para restaurar el servicio.</p></div><div class="sec-card sec-ejemplo-card"><div class="sec-card-header"><span class="sec-card-tag tag-ejemplo" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M10 3a7 7 0 1 0 4.2 12.6l5.1 5.1 1.4-1.4-5.1-5.1A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg> Ejemplo Razonado</span></div><p class="sec-text">Un banco necesita RPO de minutos y RTO de horas. Por eso realiza respaldos continuos y tiene servidores en espera.</p></div><div class="sec-card sec-check-card"><div class="sec-card-header"><span class="sec-card-tag tag-pregunta" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 15h2v2h-2zm1-11a3.5 3.5 0 0 1 1.4 6.7c-.6.3-.9.7-.9 1.3h-2c0-1.4.8-2.2 1.6-2.7A1.5 1.5 0 1 0 10.5 9.5h-2A3.5 3.5 0 0 1 12 6z"/></svg> Comprobación de Aprendizaje</span></div><p class="sec-question">Si tu RPO es de 1 hora, ¿cada cuánto tiempo debes hacer una copia de seguridad?</p><upao-reveal class="sec-reveal" data-sec="3" label="Comprobar respuesta modelo" icon="✓"><div class="sec-model-ans"><strong>Respuesta modelo fundamentada:</strong><p>Al menos cada hora, porque si el fallo ocurre justo después de la copia, perderías como máximo una hora de datos.</p></div></upao-reveal></div></div></upao-node><upao-node id="sec-node-4" data-idx="4" number="4" title="Recuperación ante Fallos" label="Sección 4"><div class="sec-body"><div class="sec-card sec-idea-card"><div class="sec-card-header"><span class="sec-card-tag tag-idea" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2zM9 20h6v2H9z"/></svg> Idea Central</span></div><p class="sec-text">La recuperación consiste en restaurar la base desde la copia de seguridad y aplicar los registros de transacciones para llegar al estado más reciente posible.</p></div><div class="sec-card sec-ejemplo-card"><div class="sec-card-header"><span class="sec-card-tag tag-ejemplo" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M10 3a7 7 0 1 0 4.2 12.6l5.1 5.1 1.4-1.4-5.1-5.1A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg> Ejemplo Razonado</span></div><p class="sec-text">Si se corrompe un archivo de datos, restauras la última copia completa y luego aplicas las transacciones posteriores guardadas en el log.</p></div><div class="sec-card sec-check-card"><div class="sec-card-header"><span class="sec-card-tag tag-pregunta" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 15h2v2h-2zm1-11a3.5 3.5 0 0 1 1.4 6.7c-.6.3-.9.7-.9 1.3h-2c0-1.4.8-2.2 1.6-2.7A1.5 1.5 0 1 0 10.5 9.5h-2A3.5 3.5 0 0 1 12 6z"/></svg> Comprobación de Aprendizaje</span></div><p class="sec-question">¿Qué papel juega el registro de transacciones en la recuperación?</p><upao-reveal class="sec-reveal" data-sec="4" label="Comprobar respuesta modelo" icon="✓"><div class="sec-model-ans"><strong>Respuesta modelo fundamentada:</strong><p>El log registra cada cambio realizado; al recuperar, se aplican los cambios posteriores a la copia para reconstruir los datos.</p></div></upao-reveal></div></div></upao-node><upao-node id="sec-node-5" data-idx="5" number="5" title="Automatización y Pruebas de Restauración" label="Sección 5"><div class="sec-body"><div class="sec-card sec-idea-card"><div class="sec-card-header"><span class="sec-card-tag tag-idea" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2zM9 20h6v2H9z"/></svg> Idea Central</span></div><p class="sec-text">No basta con hacer copias; hay que automatizar el proceso y probar periódicamente la restauración para asegurar que funciona cuando se necesita.</p></div><div class="sec-card sec-ejemplo-card"><div class="sec-card-header"><span class="sec-card-tag tag-ejemplo" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M10 3a7 7 0 1 0 4.2 12.6l5.1 5.1 1.4-1.4-5.1-5.1A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg> Ejemplo Razonado</span></div><p class="sec-text">Cada mes, el equipo de TI restaura una base de prueba desde el respaldo para verificar que los datos sean íntegros y recuperables.</p></div><div class="sec-card sec-check-card"><div class="sec-card-header"><span class="sec-card-tag tag-pregunta" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 15h2v2h-2zm1-11a3.5 3.5 0 0 1 1.4 6.7c-.6.3-.9.7-.9 1.3h-2c0-1.4.8-2.2 1.6-2.7A1.5 1.5 0 1 0 10.5 9.5h-2A3.5 3.5 0 0 1 12 6z"/></svg> Comprobación de Aprendizaje</span></div><p class="sec-question">¿Por qué es importante probar las restauraciones aunque las copias se hagan bien?</p><upao-reveal class="sec-reveal" data-sec="5" label="Comprobar respuesta modelo" icon="✓"><div class="sec-model-ans"><strong>Respuesta modelo fundamentada:</strong><p>Porque puede haber errores en el medio magnético, en el proceso o en la configuración; probar garantiza que la copia sea válida.</p></div></upao-reveal></div></div></upao-node>
-  </div>
-
-  <section class="ova-card dba-panel" aria-labelledby="dba-panel-heading">
-    <div class="dba-header">
-      <span class="dba-icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M21.7 18.6l-7.3-7.3a5.5 5.5 0 0 0-6.9-6.9l3.4 3.4-2.4 2.4L5 6.8a5.5 5.5 0 0 0 6.9 6.9l7.3 7.3a1.5 1.5 0 0 0 2.1 0l.4-.4a1.5 1.5 0 0 0 0-2.1z"/></svg></span>
-      <div>
-        <span class="dba-eyebrow">EN LA PRÁCTICA</span>
-        <h2 id="dba-panel-heading" class="dba-title">Aplicación concreta en tu futura práctica profesional</h2>
-      </div>
-    </div>
-    <div class="dba-body">
-      <p>En tu futuro trabajo como administrador de bases de datos, deberás definir políticas de respaldo según los RPO/RTO del negocio, automatizar los respaldos, monitorearlos y realizar simulacros de recuperación para evitar pérdidas catastróficas.</p>
-      <div class="dba-tip">
-        <span class="dba-tip-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2zM9 20h6v2H9z"/></svg></span>
-        <span><strong>Consejo:</strong> repasa esta aplicación con tus propias palabras y busca un ejemplo nuevo en tu entorno.</span>
-      </div>
-    </div>
-  </section>
-
-  <upao-summary title="Síntesis y Cierre de la Lectura">
-    <p>Las copias de seguridad y la recuperación son más que una tarea técnica: son una estrategia de supervivencia de los datos. Conocer los tipos y las estrategias te permitirá proteger la información crítica de cualquier organización.</p>
-    <upao-complete slot="actions" label="Finalizar lectura" locked></upao-complete>
-  </upao-summary>
-  
+<upao-header eyebrow="QUIZ INTERACTIVO" title="Backup y Copia de Seguridad: Nivel Avanzado"><p>Selecciona la única opción correcta en cada pregunta, aplicando rigor conceptual sobre respaldo de datos.</p></upao-header>
+<div class="ev-hud">
+  <upao-progress id="prog" current="0" total="10" label="Preguntas respondidas" show-fraction></upao-progress>
+  <upao-score id="score" current="0" max="100" label="Puntuación"></upao-score>
 </div>
+<div class="ova-stack"><upao-question number="1" prompt="¿Cuál es la diferencia fundamental entre una copia de seguridad y un backup en sistemas empresariales?"><upao-choice group="q1" value="A" correct="false" feedback="Confundir backup con copia simple. Backup integra políticas de recuperación.">Son sinónimos exactos sin ninguna distinción técnica</upao-choice><upao-choice group="q1" value="B" correct="false" feedback="Confundir backup con copia simple. Backup integra políticas de recuperación.">Backup implica replicación, copia es solo almacenamiento</upao-choice><upao-choice group="q1" value="C" correct="false" feedback="Confundir backup con copia simple. Backup integra políticas de recuperación.">Backup es el proceso automatizado y copia es manual</upao-choice><upao-choice group="q1" value="D" correct="true" feedback="El backup abarca estrategia y restauración, no solo duplicación de archivos.">Backup incluye gestión de recuperación, copia solo duplica datos</upao-choice></upao-question><upao-question number="2" prompt="¿Qué modelo de respaldo restaura la versión más rápida usando solo el último backup completo y diferenciales?"><upao-choice group="q2" value="A" correct="false" feedback="Confundir con incremental, que requiere aplicar toda la cadena de backups.">Backup completo diario</upao-choice><upao-choice group="q2" value="B" correct="false" feedback="Confundir con incremental, que requiere aplicar toda la cadena de backups.">Backup incremental</upao-choice><upao-choice group="q2" value="C" correct="true" feedback="El diferencial acumula cambios desde el último completo, acelerando la restauración.">Backup diferencial</upao-choice><upao-choice group="q2" value="D" correct="false" feedback="Confundir con incremental, que requiere aplicar toda la cadena de backups.">Backup espejo en caliente</upao-choice></upao-question><upao-question number="3" prompt="En un entorno de virtualización, ¿qué técnica permite respaldar una VM sin detener su operación?"><upao-choice group="q3" value="A" correct="false" feedback="Creer que se requieren apagados. El snapshot evita inestabilidad y caídas.">Backup en frío con apagado</upao-choice><upao-choice group="q3" value="B" correct="true" feedback="El snapshot captura estado consistente sin interrumpir la VM activa.">Snapshot con copia del estado</upao-choice><upao-choice group="q3" value="C" correct="false" feedback="Creer que se requieren apagados. El snapshot evita inestabilidad y caídas.">Clonación manual del disco</upao-choice><upao-choice group="q3" value="D" correct="false" feedback="Creer que se requieren apagados. El snapshot evita inestabilidad y caídas.">Respaldar solo archivos .vmdk</upao-choice></upao-question><upao-question number="4" prompt="¿Qué política de retención es la más adecuada para datos críticos con requisitos de auditoría?"><upao-choice group="q4" value="A" correct="false" feedback="Elegir períodos arbitrarios sin base legal. La retención es reglamentaria.">Retención de 7 días</upao-choice><upao-choice group="q4" value="B" correct="false" feedback="Elegir períodos arbitrarios sin base legal. La retención es reglamentaria.">Retención mensual indefinida</upao-choice><upao-choice group="q4" value="C" correct="true" feedback="La política de retención se alinea con normativas y necesidades de auditoría.">Retención basada en cumplimiento legal</upao-choice><upao-choice group="q4" value="D" correct="false" feedback="Elegir períodos arbitrarios sin base legal. La retención es reglamentaria.">Retención solo semestral</upao-choice></upao-question><upao-question number="5" prompt="¿Cómo afecta la deduplicación de datos al rendimiento y al espacio en los backups?"><upao-choice group="q5" value="A" correct="false" feedback="Pensar que solo comprime. La deduplicación es granular, no por archivo.">Aumenta el espacio usado sin beneficio</upao-choice><upao-choice group="q5" value="B" correct="true" feedback="La deduplicación elimina redundancias, optimizando almacenamiento y velocidad.">Reduce espacio y acelera la restauración</upao-choice><upao-choice group="q5" value="C" correct="false" feedback="Pensar que solo comprime. La deduplicación es granular, no por archivo.">Solo reduce el tiempo de respaldo</upao-choice><upao-choice group="q5" value="D" correct="false" feedback="Pensar que solo comprime. La deduplicación es granular, no por archivo.">Elimina la necesidad de compresión</upao-choice></upao-question><upao-question number="6" prompt="En una recuperación ante desastres, ¿qué métrica indica el tiempo máximo aceptable para restaurar el servicio?"><upao-choice group="q6" value="A" correct="false" feedback="Confundir con RPO, que mide pérdida de datos tolerable, no tiempo.">RPO (Recovery Point Objective)</upao-choice><upao-choice group="q6" value="B" correct="true" feedback="El RTO define el tiempo objetivo de restauración del servicio tras un fallo.">RTO (Recovery Time Objective)</upao-choice><upao-choice group="q6" value="C" correct="false" feedback="Confundir con RPO, que mide pérdida de datos tolerable, no tiempo.">MTBF (Mean Time Between Failures)</upao-choice><upao-choice group="q6" value="D" correct="false" feedback="Confundir con RPO, que mide pérdida de datos tolerable, no tiempo.">MTTR (Mean Time To Repair)</upao-choice></upao-question><upao-question number="7" prompt="Una empresa opta por backup en cinta magnética LTO-8. ¿Cuál es su principal desventaja frente a almacenamiento cloud?"><upao-choice group="q7" value="A" correct="false" feedback="Pensar en costo o cifrado. La cinta es económica y segura, pero lenta.">Costo inicial muy elevado</upao-choice><upao-choice group="q7" value="B" correct="true" feedback="El acceso secuencial de cintas produce recuperaciones lentas frente al cloud.">Alta latencia en recuperación</upao-choice><upao-choice group="q7" value="C" correct="false" feedback="Pensar en costo o cifrado. La cinta es económica y segura, pero lenta.">Imposible cifrar datos</upao-choice><upao-choice group="q7" value="D" correct="false" feedback="Pensar en costo o cifrado. La cinta es económica y segura, pero lenta.">Capacidad limitada a 30 TB</upao-choice></upao-question><upao-question number="8" prompt="¿Qué estrategia de backup es la más eficiente para mantener 30 versiones diarias de una base de datos crítica?"><upao-choice group="q8" value="A" correct="false" feedback="Usar solo full es costoso; la replicación no preserva versiones históricas.">Backup completo diario sin incremental</upao-choice><upao-choice group="q8" value="B" correct="true" feedback="Combina full con incrementales para versiones diarias minimizando espacio.">Full semanal + incrementales diarios</upao-choice><upao-choice group="q8" value="C" correct="false" feedback="Usar solo full es costoso; la replicación no preserva versiones históricas.">Backup diferencial cada hora</upao-choice><upao-choice group="q8" value="D" correct="false" feedback="Usar solo full es costoso; la replicación no preserva versiones históricas.">Replicación asíncrona sin versiones</upao-choice></upao-question><upao-question number="9" prompt="En un plan de continuidad de negocio, ¿cuándo es obligatorio probar la restauración de backups?"><upao-choice group="q9" value="A" correct="false" feedback="Esperar a un fallo es riesgo. La validación continua es esencial.">Solo después de un incidente real</upao-choice><upao-choice group="q9" value="B" correct="false" feedback="Esperar a un fallo es riesgo. La validación continua es esencial.">Anualmente de forma opcional</upao-choice><upao-choice group="q9" value="C" correct="false" feedback="Esperar a un fallo es riesgo. La validación continua es esencial.">Nunca, basta con monitorear</upao-choice><upao-choice group="q9" value="D" correct="true" feedback="Las pruebas periódicas de DR validan la integridad y el tiempo de respuesta.">Periódicamente con pruebas de DR</upao-choice></upao-question><upao-question number="10" prompt="Un ataque ransomware cifra los archivos. ¿Qué backup es más efectivo para recuperar sin pagar rescate?"><upao-choice group="q10" value="A" correct="false" feedback="Backups conectados o sin versionado son vulnerables al cifrado.">Backup en red a directorio local</upao-choice><upao-choice group="q10" value="B" correct="true" feedback="Los respaldos inmutables u offline no pueden ser modificados por el malware.">Backup offline o inmutables</upao-choice><upao-choice group="q10" value="C" correct="false" feedback="Backups conectados o sin versionado son vulnerables al cifrado.">Backup en el mismo servidor</upao-choice><upao-choice group="q10" value="D" correct="false" feedback="Backups conectados o sin versionado son vulnerables al cifrado.">Backup en nube sin versionado</upao-choice></upao-question></div>
+<section class="ev-card ev-result" id="result" aria-live="polite" hidden>
+  <p class="ev-big" id="result-big"></p>
+  <p id="result-msg"></p>
+</section>
+<upao-summary title="Cierre">Evaluaste desde fundamentos hasta avanzadas estrategias de respaldo, consolidando el dominio en continuidad operativa.<upao-complete slot="actions" label="Finalizar quiz" locked></upao-complete></upao-summary>
+<script type="application/json" id="ova-data">{"total": 10}</script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 (function(){
@@ -455,89 +174,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-var OVA_ICONS={'folder':'<svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M3 5a1 1 0 0 1 1-1h5.5l2 2H20a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>','folder-open':'<svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="currentColor" fill-rule="evenodd" aria-hidden="true" focusable="false" style="vertical-align:-.15em"><path d="M4 4h5.5l2 2H19a1 1 0 0 1 1 1v2H8.2a1 1 0 0 0-.95.68L4 19.5zM9.2 11H22l-3 8.3a1 1 0 0 1-.95.7H4z"/></svg>'};function ovaIcon(n){return OVA_ICONS[n]||'';}
-(function () {
-  const btnToggleAll = document.getElementById('btn-toggle-all');
-  const toggleIcon = document.getElementById('toggle-all-icon');
-  const toggleText = document.getElementById('toggle-all-text');
-  let allOpen = false;
-
-  function updateToggleState() {
-    const nodes = document.querySelectorAll('upao-node');
-    let openCount = 0;
-    nodes.forEach(function (node) {
-      if (node.shadowRoot) {
-        const wrap = node.shadowRoot.querySelector('.wrap');
-        if (wrap && wrap.hasAttribute('open')) {
-          openCount++;
-        }
-      }
-    });
-    if (nodes.length > 0 && openCount === nodes.length) {
-      allOpen = true;
-      if (toggleIcon) toggleIcon.innerHTML = ovaIcon('folder');
-      if (toggleText) toggleText.textContent = 'Plegar todas las secciones';
-      if (btnToggleAll) btnToggleAll.setAttribute('aria-expanded', 'true');
-    } else if (openCount === 0) {
-      allOpen = false;
-      if (toggleIcon) toggleIcon.innerHTML = ovaIcon('folder-open');
-      if (toggleText) toggleText.textContent = 'Abrir todas las secciones';
-      if (btnToggleAll) btnToggleAll.setAttribute('aria-expanded', 'false');
-    }
+const total = JSON.parse(document.getElementById('ova-data').textContent).total;
+const score = document.getElementById('score');
+let hits = 0, answered = 0;
+document.addEventListener('upao-choice-selected', function (e) {
+  answered++;
+  if (e.detail && e.detail.correct) { hits++; score.add(10); }
+  window.ovaMark(e.detail && e.detail.group);
+  if (answered >= total) {
+    const pct = Math.round(100 * hits / total);
+    document.getElementById('result').hidden = false;
+    document.getElementById('result-big').textContent = hits + ' / ' + total + ' correctas (' + pct + ' %)';
+    document.getElementById('result-msg').textContent = pct >= 80
+      ? 'Excelente dominio del tema.'
+      : pct >= 50 ? 'Buen avance: repasa las preguntas con feedback en rojo.'
+      : 'Necesitas repasar el tema antes de continuar.';
   }
-
-  document.addEventListener('upao-node-toggle', function (e) {
-    const node = e.target.closest('upao-node') || e.target;
-    if (!node) return;
-    const idx = node.getAttribute('data-idx');
-    if (e.detail && e.detail.open && idx && typeof window.ovaMark === 'function') {
-      window.ovaMark('sec-' + idx);
-    }
-    updateToggleState();
-  });
-
-  document.addEventListener('click', function (e) {
-    const path = e.composedPath ? e.composedPath() : [];
-    const rev = path.find(function (el) {
-      return el.tagName && el.tagName.toLowerCase() === 'upao-reveal';
-    }) || (e.target && e.target.closest ? e.target.closest('upao-reveal') : null);
-
-    if (rev) {
-      const idx = rev.getAttribute('data-sec');
-      if (idx && typeof window.ovaMark === 'function') {
-        window.ovaMark('sec-' + idx);
-      }
-    }
-  });
-
-  if (btnToggleAll) {
-    btnToggleAll.addEventListener('click', function () {
-      allOpen = !allOpen;
-      const nodes = document.querySelectorAll('upao-node');
-      nodes.forEach(function (node) {
-        const idx = node.getAttribute('data-idx');
-        if (node.shadowRoot) {
-          const wrap = node.shadowRoot.querySelector('.wrap');
-          const head = node.shadowRoot.querySelector('.head');
-          if (wrap && head) {
-            const isOpen = wrap.hasAttribute('open');
-            if (allOpen && !isOpen) {
-              head.click();
-            } else if (!allOpen && isOpen) {
-              head.click();
-            }
-          }
-        }
-        if (allOpen && idx && typeof window.ovaMark === 'function') {
-          window.ovaMark('sec-' + idx);
-        }
-      });
-      if (toggleIcon) toggleIcon.innerHTML = allOpen ? ovaIcon('folder') : ovaIcon('folder-open');
-      if (toggleText) toggleText.textContent = allOpen ? 'Plegar todas las secciones' : 'Abrir todas las secciones';
-      btnToggleAll.setAttribute('aria-expanded', String(allOpen));
-    });
-  }
-})();
+});
 });
 </script>
 
