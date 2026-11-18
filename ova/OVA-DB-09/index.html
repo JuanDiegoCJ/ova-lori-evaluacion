@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Diseño lógico de bases de datos relacionales</title>
+    <title>Gestión del almacenamiento en Oracle: tablespaces y datafiles</title>
     <meta name="author" content="" />
-    <meta name="description" content="Diseño lógico de bases de datos relacionales: llaves primarias, llaves foráneas y normalización hasta la Tercera Forma Normal (3FN).
-Objetivos: transformar un modelo Entidad-Relación en tablas normalizadas, eliminar la redundancia de datos y evitar anomalías de inserción, actualización y borrado en un SGBD relacional." />
+    <meta name="description" content="Gestión del almacenamiento en Oracle: tablespaces y datafiles.
+Objetivos: distinguir la estructura lógica (tablespace, segmento, extent, bloque) de la física (datafiles), crear un tablespace y asignarlo a un usuario, y consultar su ocupación en DBA_DATA_FILES y DBA_SEGMENTS." />
     <meta name="keywords" content="" />
     <meta name="language" content="es" />
     <meta name="license" content="CC BY-SA 4.0" />
@@ -17,21 +17,18 @@ Objetivos: transformar un modelo Entidad-Relación en tablas normalizadas, elimi
     <link rel="stylesheet" href="resources/styles.css" />
   </head>
   <body data-package-format="scorm12"
-        data-progress-key="c5eae41ae9a8f25855a1bebec2f254efbde4400a9d21ad7abc7dd24ed130be22">
+        data-progress-key="1a81278467b284f6db4578062640cb67916184d9282abbd9f6a7b3619c702198">
     <a class="skip-link" href="#res-frame">Saltar al contenido</a>
     <main class="container">
       <header>
-        <h1>Diseño lógico de bases de datos relacionales</h1>
+        <h1>Gestión del almacenamiento en Oracle: tablespaces y datafiles</h1>
         <p>Objeto Virtual de Aprendizaje · GenOVA · SCORM 1.2</p>
       </header>
 
       <nav class="res-nav" aria-label="Recursos del OVA">
         <div role="tablist" aria-label="Secciones del OVA" aria-orientation="horizontal">
-          <button type="button" role="tab" class="res-link" id="tab-1" data-src="resources/recurso_1.html" aria-controls="res-frame" aria-selected="false" tabindex="-1">Cómic Interactivo</button>
-          <button type="button" role="tab" class="res-link" id="tab-2" data-src="resources/recurso_2.html" aria-controls="res-frame" aria-selected="false" tabindex="-1">Juego Drag &amp; Drop</button>
-          <button type="button" role="tab" class="res-link" id="tab-3" data-src="resources/recurso_3.html" aria-controls="res-frame" aria-selected="false" tabindex="-1">Video Teórico</button>
-          <button type="button" role="tab" class="res-link" id="tab-4" data-src="resources/recurso_4.html" aria-controls="res-frame" aria-selected="false" tabindex="-1">Reto de Diseño</button>
-          <button type="button" role="tab" class="res-link" id="tab-5" data-src="resources/recurso_5.html" aria-controls="res-frame" aria-selected="false" tabindex="-1">Quiz Interactivo</button>
+          <button type="button" role="tab" class="res-link" id="tab-1" data-src="resources/recurso_1.html" aria-controls="res-frame" aria-selected="false" tabindex="-1">Escape Room Virtual</button>
+          <button type="button" role="tab" class="res-link" id="tab-2" data-src="resources/recurso_2.html" aria-controls="res-frame" aria-selected="false" tabindex="-1">Simulador Virtual Lab</button>
         </div>
       </nav>
 
