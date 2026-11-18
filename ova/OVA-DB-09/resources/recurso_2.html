@@ -103,346 +103,86 @@ html{scroll-behavior:auto}}
 </style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="genova-engine" content="template:explore:3">
-<meta name="genova-engine-params" content="{&quot;params&quot;: {&quot;num_rounds&quot;: 7}, &quot;review&quot;: {&quot;found&quot;: 4, &quot;fixed&quot;: 1, &quot;extra_s&quot;: 6.1}}">
-<title>Juego Drag &amp; Drop: Diseño lógico de bases de datos relacionales: llaves primarias, llaves foráneas y normalización hasta la Tercera Forma Normal (3FN)</title>
+<meta name="genova-engine" content="template:explore:1">
+<meta name="genova-engine-params" content="{&quot;params&quot;: {&quot;num_iterations&quot;: 5}, &quot;review&quot;: {&quot;found&quot;: 0, &quot;fixed&quot;: 0, &quot;extra_s&quot;: 1.0}}">
+<title>Simulador Virtual Lab: Gestión del almacenamiento en Oracle: tablespaces y datafiles</title>
 <!--genova-package-theme--><style id="genova-package-theme">:root{--bg:#F7F9FC !important;--surface:#FFFFFF !important;--surface-tint:#EAF0FB !important;--surface-2:#F8FAFC !important;--primary:#0A3D91 !important;--primary-hover:#072C6B !important;--accent:#F47A20 !important;--accent-hover:#D9650F !important;--accent-tint:#FDEEE0 !important;--action:#B84B00 !important;--action-hover:#923B00 !important;--text:#15233B !important;--text-muted:#52617A !important;--border:#94A3B8 !important;--success:#146C49 !important;--danger:#B42332 !important;--radius:14px !important;--success-bg:#EAF7F1 !important;--danger-bg:#FBEDED !important;--warning:#92400E !important;--warning-bg:#FFFBEB !important;--info:#0369A1 !important;--info-bg:#E0F2FE !important;--shadow:0 6px 20px rgba(10,61,145,.08) !important;--font-body:system-ui,-apple-system,"Segoe UI",Arial,sans-serif !important;--font-display:var(--font-body) !important;--font-mono:ui-monospace,Menlo,monospace !important;--on-primary:#FFFFFF !important;--on-action:#FFFFFF !important;--space-1:8px !important;--space-2:12px !important;--space-3:16px !important;--space-4:24px !important;--space-5:32px !important;--space-6:48px !important;--muted:#52617A !important;--focus:#0A3D91 !important;--foreground:#15233B !important;}body{font-family:var(--font-body)}.ova-option.is-correct,.ova-feedback--ok{background:var(--success-bg)}.ova-option.is-wrong,.ova-feedback--bad{background:var(--danger-bg)}</style><!--/genova-package-theme--></head>
 <body>
 <main class="ova-container ova-stack">
 
 <style>
-.drag-game-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4, 20px);
-}
-.drag-hud {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3, 12px);
-  background: var(--surface, #ffffff);
-  border: 1px solid var(--border, #E2E8F2);
-  border-radius: var(--radius, 12px);
-  padding: 16px;
-  box-shadow: var(--shadow, 0 4px 20px rgba(10,61,145,.09));
-}
-.hud-indicators {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.zones-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
-.category-zone-card {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  background: var(--surface, #ffffff);
-  border: 2px solid var(--border, #E2E8F2);
-  border-radius: var(--radius, 12px);
-  padding: 18px;
-  box-shadow: var(--shadow, 0 4px 20px rgba(10,61,145,.09));
-  transition: border-color .2s ease-out;
-}
-.category-zone-card:hover {
-  border-color: var(--primary, #0A3D91);
-}
-.category-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-.category-badge {
-  flex-shrink: 0;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 0.95rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.category-badge--a {
-  background: var(--primary, #0A3D91);
-}
-.category-badge--b {
-  background: var(--accent, #F47A20);
-}
-.category-name {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text, #15233B);
-  margin: 0 0 4px 0;
-}
-.category-desc {
-  font-size: 0.88rem;
-  line-height: 1.45;
-  color: var(--text-muted, #5A6B85);
-  margin: 0;
-}
-.classified-box {
-  border-top: 1px dashed var(--border, #E2E8F2);
-  padding-top: 12px;
-  min-height: 80px;
-}
-.classified-heading {
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted, #5A6B85);
-  margin: 0 0 8px 0;
-}
-.classified-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.classified-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 0.88rem;
-  line-height: 1.4;
-  padding: 8px 12px;
-  background: var(--surface-tint, #EAF0FB);
-  border-radius: var(--radius-sm, 8px);
-  border-left: 3px solid var(--success, #146C49);
-}
-.item-ok-badge {
-  color: var(--success, #146C49);
-  font-weight: 700;
-  flex-shrink: 0;
-}
-.items-pool {
-  background: var(--surface, #ffffff);
-  border: 1px solid var(--border, #E2E8F2);
-  border-radius: var(--radius, 12px);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  box-shadow: var(--shadow, 0 4px 20px rgba(10,61,145,.09));
-}
-.pool-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  border-bottom: 1px solid var(--border, #E2E8F2);
-  padding-bottom: 12px;
-}
-.pool-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--primary, #0A3D91);
-  margin: 0;
-}
-.pool-counter {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted, #5A6B85);
-  background: var(--surface-tint, #EAF0FB);
-  padding: 4px 10px;
-  border-radius: 999px;
-}
-.items-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-}
-.drag-item-card {
-  background: var(--surface, #ffffff);
-  border: 1.5px solid var(--border, #E2E8F2);
-  border-radius: var(--radius, 12px);
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: border-color .2s ease-out, background-color .2s ease-out;
-}
-.drag-item-card:hover {
-  border-color: var(--primary, #0A3D91);
-}
-.drag-item-card.is-matched {
-  border-color: var(--success, #146C49);
-  background: var(--success-bg, #EAF7F1);
-}
-.drag-item-card.is-shake {
-  animation: upao-drag-shake 0.4s ease-in-out;
-}
-@keyframes upao-drag-shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-6px); }
-  40%, 80% { transform: translateX(6px); }
-}
-.drag-item-content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.drag-item-term {
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: var(--text, #15233B);
-  margin: 0;
-}
-.drag-item-hint {
-  font-size: 0.85rem;
-  line-height: 1.4;
-  color: var(--text-muted, #5A6B85);
-  margin: 0;
-}
-.item-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-top: 8px;
-  border-top: 1px dashed var(--border, #E2E8F2);
-}
-.action-prompt {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-muted, #5A6B85);
-}
-.action-buttons {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.btn-classify {
-  flex: 1 1 120px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 38px;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm, 8px);
-  border: 1.5px solid var(--border, #E2E8F2);
-  background: var(--surface, #ffffff);
-  color: var(--text, #15233B);
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease-out;
-}
-.btn-classify:hover:not(:disabled) {
-  border-color: var(--primary, #0A3D91);
-  background: var(--surface-tint, #EAF0FB);
-  color: var(--primary, #0A3D91);
-}
-.btn-classify:focus-visible {
-  outline: 2px solid var(--primary, #0A3D91);
-  outline-offset: 2px;
-}
-.btn-classify:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-.btn-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--surface-tint, #EAF0FB);
-  color: var(--primary, #0A3D91);
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-.item-feedback {
-  font-size: 0.85rem;
-  line-height: 1.4;
-  padding: 8px 10px;
-  border-radius: var(--radius-sm, 8px);
-}
-.item-feedback--ok {
-  background: var(--success-bg, #EAF7F1);
-  border: 1px solid var(--success, #146C49);
-  color: var(--success, #146C49);
-}
-.item-feedback--bad {
-  background: var(--danger-bg, #FBEDED);
-  border: 1px solid var(--danger, #C5221F);
-  color: var(--danger, #C5221F);
-}
+.lab-head { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px; }
+.lab-layout { display:grid; grid-template-columns:1fr; gap:20px; margin-top:16px; }
+@media (min-width: 920px) { .lab-layout { grid-template-columns: 300px 1fr; align-items:start; } }
+.lab-controls { display:flex; flex-direction:column; gap:10px; }
+.lab-control { background:var(--surface-2,#f8fafc); border:1px solid var(--border,#e2e8f0); border-radius:var(--radius,10px); padding:12px; display:flex; flex-direction:column; gap:6px; }
+.ova-action-btn { width:100%; min-height:44px; font-weight:600; text-align:left; cursor:pointer; background:var(--primary,#0A3D91); color:#fff; border:none; border-radius:var(--radius,8px); padding:8px 12px; display:flex; align-items:center; gap:8px; }
+.ova-action-btn:hover { filter:brightness(1.1); }
+.lab-control p { font-size:0.825rem; line-height:1.4; margin:0; }
+.lab-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin-block:14px 16px; }
+.lab-metric { background:var(--surface-2,#f8fafc); border:1px solid var(--border,#e2e8f0); border-radius:var(--radius,8px); padding:10px 12px; text-align:center; }
+.lab-metric-val { display:block; font-size:1.3rem; font-weight:700; color:var(--primary,#0A3D91); font-variant-numeric:tabular-nums; }
+.lab-metric-label { display:block; font-size:0.75rem; color:var(--text-muted,#64748b); text-transform:uppercase; letter-spacing:0.04em; margin-top:2px; }
+.lab-diagram { display:flex; flex-direction:column; gap:12px; min-width:0; }
+.lab-components { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; }
+.lab-comp { margin:0; border:2px solid var(--border,#e2e8f0); border-radius:var(--radius,10px); padding:12px; background:var(--surface,#fff); transition:border-color .2s, background .2s; }
+.lab-comp[data-active="true"] { border-color:var(--primary,#0A3D91); background:var(--surface-2,#eef4ff); }
+.lab-comp-name { display:block; font-weight:700; font-size:0.9rem; }
+.lab-comp-state { display:inline-block; margin-top:6px; font-size:0.78rem; font-weight:600; padding:2px 8px; border-radius:999px; background:var(--surface-2,#f1f5f9); color:var(--text,#1e293b); }
+.lab-log { list-style:none; padding:8px 12px; margin:0; max-height:120px; overflow-y:auto; font-size:0.8rem; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:var(--surface-2,#f8fafc); border:1px solid var(--border,#e2e8f0); border-radius:var(--radius,8px); display:flex; flex-direction:column; gap:4px; }
+.lab-log li { padding-block:2px; border-bottom:1px dashed var(--border,#e2e8f0); color:var(--text,#1e293b); }
+@media (prefers-reduced-motion: reduce) { .lab-comp { transition:none; } }
 </style>
 
-<upao-header eyebrow="JUEGO DRAG &amp; DROP" title="Clasifica el diseño lógico: llaves y normalización">
-  <p>Arrastra cada elemento a su categoría correcta o utiliza los botones de selección directa para jugar con teclado o móvil.</p>
+<upao-header eyebrow="SIMULADOR VIRTUAL LAB" title="Tablespaces y datafiles en Oracle">
+  <p>Un tablespace agrupa segmentos lógicos sobre datafiles físicos. Crear, extender o asignar cambia la ocupación y la relación entre ambos niveles.</p>
 </upao-header>
 
-<div class="drag-game-container">
-  <div class="drag-hud">
-    <upao-progress id="prog" current="0" total="7" label="Progreso de clasificación" show-fraction></upao-progress>
-    <div class="hud-indicators">
-      <upao-status id="status" state="info">Selecciona o arrastra un elemento para clasificarlo</upao-status>
-      <upao-score id="score" current="0" max="70" label="Puntuación"></upao-score>
+<upao-objective>Distinguir estructura lógica y física del almacenamiento Oracle creando un tablespace.</upao-objective>
+
+<upao-example title="Ejemplo trabajado de referencia">
+  <p>Crear tablespace → crear segmento tabla → agregar extent. Tras tres acciones: bloques usados=16, extents=2, segmentos=1; el datafile muestra ocupación real.</p>
+</upao-example>
+
+<upao-progress id="prog" current="0" total="4" label="Progreso del laboratorio" show-fraction></upao-progress>
+
+<section class="ova-card">
+  <div class="lab-head">
+    <h2>Simulación interactiva del mecanismo</h2>
+    <span class="ova-badge" id="iter-badge">Iteración: 0 de 4</span>
+  </div>
+  <upao-status id="lab-status" state="info" aria-live="polite">Laboratorio listo. Ejecuta una acción y observa qué cambia.</upao-status>
+
+  <div class="lab-metrics"><div class="lab-metric"><span class="lab-metric-val" id="lab-metric-0">0</span><span class="lab-metric-label">Bloques usados</span></div><div class="lab-metric"><span class="lab-metric-val" id="lab-metric-1">0</span><span class="lab-metric-label">Extents asignados</span></div><div class="lab-metric"><span class="lab-metric-val" id="lab-metric-2">0</span><span class="lab-metric-label">Segmentos creados</span></div></div>
+
+  <div class="lab-layout">
+    <div class="lab-controls">
+      <h3>Acciones del laboratorio</h3>
+      <div class="lab-controls" role="group" aria-label="Acciones del laboratorio"><div class="lab-control"><button type="button" class="ova-action-btn" data-idx="0"><span aria-hidden="true">▲</span><span>Crear tablespace</span></button><p class="ova-muted">Crea un tablespace con un datafile inicial de 10MB y un extent de 64KB.</p></div><div class="lab-control"><button type="button" class="ova-action-btn" data-idx="1"><span aria-hidden="true">◆</span><span>Crear segmento tabla</span></button><p class="ova-muted">Crea una tabla (segmento) en el tablespace para el usuario PRACTICA.</p></div><div class="lab-control"><button type="button" class="ova-action-btn" data-idx="2"><span aria-hidden="true">■</span><span>Agregar extent</span></button><p class="ova-muted">Inserta filas que fuerzan al segmento a solicitar un extent adicional.</p></div><div class="lab-control"><button type="button" class="ova-action-btn" data-idx="3"><span aria-hidden="true">●</span><span>Consultar DBA_DATA_FILES</span></button><p class="ova-muted">Ejecuta consulta de ocupación en DBA_DATA_FILES y DBA_SEGMENTS.</p></div></div>
+      <button type="button" class="ova-btn ova-btn--ghost" id="btn-reset-lab">
+        <span aria-hidden="true">↺</span> Reiniciar estado visual
+      </button>
+    </div>
+
+    <div class="lab-diagram">
+      <h3>Componentes del mecanismo</h3>
+      <ul class="lab-components" aria-label="Estado de los componentes"><li class="lab-comp" id="lab-comp-0" data-active="false"><span class="lab-comp-name">Tablespace</span><span class="lab-comp-state">Vacío, sin segmentos</span></li><li class="lab-comp" id="lab-comp-1" data-active="false"><span class="lab-comp-name">Segmento</span><span class="lab-comp-state">No asignado a usuario</span></li><li class="lab-comp" id="lab-comp-2" data-active="false"><span class="lab-comp-name">Extent</span><span class="lab-comp-state">Sin reservar en datafile</span></li><li class="lab-comp" id="lab-comp-3" data-active="false"><span class="lab-comp-name">Datafile</span><span class="lab-comp-state">Libre, sin bloques usados</span></li></ul>
+      <div>
+        <h4 style="margin:0 0 6px;font-size:0.9rem">Bitácora de eventos</h4>
+        <ul class="lab-log" id="lab-log" tabindex="0" aria-live="polite" aria-label="Bitácora de eventos">
+          <li>[00] Laboratorio iniciado.</li>
+        </ul>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="zones-grid" role="region" aria-label="Zonas de destino de clasificación">
-    <section class="category-zone-card" id="zone-card-logica">
-      <div class="category-header">
-        <span class="category-badge category-badge--a" aria-hidden="true">A</span>
-        <div>
-          <h2 class="category-name">Diseño lógico</h2>
-          <p class="category-desc">Elementos que definen estructura, integridad y organización de datos en tablas.</p>
-        </div>
-      </div>
-      <upao-drop-zone zone-id="zone-logica" accepts="logica" label="Diseño lógico"></upao-drop-zone>
-      <div class="classified-box">
-        <h3 class="classified-heading">Elementos asignados:</h3>
-        <ul class="classified-list" id="list-logica" aria-label="Elementos asignados a Diseño lógico"></ul>
-      </div>
-    </section>
-
-    <section class="category-zone-card" id="zone-card-fisica">
-      <div class="category-header">
-        <span class="category-badge category-badge--b" aria-hidden="true">B</span>
-        <div>
-          <h2 class="category-name">Implementación física</h2>
-          <p class="category-desc">Aspectos de almacenamiento, rendimiento y optimización del SGBD.</p>
-        </div>
-      </div>
-      <upao-drop-zone zone-id="zone-fisica" accepts="fisica" label="Implementación física"></upao-drop-zone>
-      <div class="classified-box">
-        <h3 class="classified-heading">Elementos asignados:</h3>
-        <ul class="classified-list" id="list-fisica" aria-label="Elementos asignados a Implementación física"></ul>
-      </div>
-    </section>
-  </div>
-
-  <section class="items-pool" aria-labelledby="pool-title">
-    <div class="pool-header">
-      <h2 id="pool-title" class="pool-title">Elementos por clasificar</h2>
-      <span class="pool-counter" id="pool-counter">Pendientes: 7 de 7</span>
-    </div>
-    <div class="items-grid" id="pool-grid">
-      <article class="drag-item-card" id="card-item-1" data-item-id="item-1">  <upao-drag-item item-id="item-1" category="logica">    <div class="drag-item-content">      <p class="drag-item-term">Llave primaria</p>      <p class="drag-item-hint">Identifica de forma única cada fila de una tabla en el modelo relacional.</p>    </div>  </upao-drag-item>  <div class="item-actions" role="group" aria-label="Clasificar Llave primaria">    <span class="action-prompt">O clasifica directamente:</span>    <div class="action-buttons">      <button type="button" class="btn-classify" data-item-id="item-1" data-target-cat="logica" aria-label="Clasificar Llave primaria en la categoría A, Diseño lógico">        <span class="btn-tag" aria-hidden="true">A</span> Diseño lógico      </button>      <button type="button" class="btn-classify" data-item-id="item-1" data-target-cat="fisica" aria-label="Clasificar Llave primaria en la categoría B, Implementación física">        <span class="btn-tag" aria-hidden="true">B</span> Implementación física      </button>    </div>  </div>  <div class="item-feedback" id="fb-item-1" role="status" aria-live="polite" hidden></div></article><article class="drag-item-card" id="card-item-2" data-item-id="item-2">  <upao-drag-item item-id="item-2" category="logica">    <div class="drag-item-content">      <p class="drag-item-term">Llave foránea</p>      <p class="drag-item-hint">Establece relación entre tablas, referenciando la llave primaria de otra tabla.</p>    </div>  </upao-drag-item>  <div class="item-actions" role="group" aria-label="Clasificar Llave foránea">    <span class="action-prompt">O clasifica directamente:</span>    <div class="action-buttons">      <button type="button" class="btn-classify" data-item-id="item-2" data-target-cat="logica" aria-label="Clasificar Llave foránea en la categoría A, Diseño lógico">        <span class="btn-tag" aria-hidden="true">A</span> Diseño lógico      </button>      <button type="button" class="btn-classify" data-item-id="item-2" data-target-cat="fisica" aria-label="Clasificar Llave foránea en la categoría B, Implementación física">        <span class="btn-tag" aria-hidden="true">B</span> Implementación física      </button>    </div>  </div>  <div class="item-feedback" id="fb-item-2" role="status" aria-live="polite" hidden></div></article><article class="drag-item-card" id="card-item-3" data-item-id="item-3">  <upao-drag-item item-id="item-3" category="fisica">    <div class="drag-item-content">      <p class="drag-item-term">Índice agrupado</p>      <p class="drag-item-hint">Ordena físicamente los datos en disco para acelerar búsquedas por llave primaria.</p>    </div>  </upao-drag-item>  <div class="item-actions" role="group" aria-label="Clasificar Índice agrupado">    <span class="action-prompt">O clasifica directamente:</span>    <div class="action-buttons">      <button type="button" class="btn-classify" data-item-id="item-3" data-target-cat="logica" aria-label="Clasificar Índice agrupado en la categoría A, Diseño lógico">        <span class="btn-tag" aria-hidden="true">A</span> Diseño lógico      </button>      <button type="button" class="btn-classify" data-item-id="item-3" data-target-cat="fisica" aria-label="Clasificar Índice agrupado en la categoría B, Implementación física">        <span class="btn-tag" aria-hidden="true">B</span> Implementación física      </button>    </div>  </div>  <div class="item-feedback" id="fb-item-3" role="status" aria-live="polite" hidden></div></article><article class="drag-item-card" id="card-item-4" data-item-id="item-4">  <upao-drag-item item-id="item-4" category="logica">    <div class="drag-item-content">      <p class="drag-item-term">Primera Forma Normal (1FN)</p>      <p class="drag-item-hint">Elimina grupos repetitivos y garantiza atomicidad en cada atributo de la tabla.</p>    </div>  </upao-drag-item>  <div class="item-actions" role="group" aria-label="Clasificar Primera Forma Normal (1FN)">    <span class="action-prompt">O clasifica directamente:</span>    <div class="action-buttons">      <button type="button" class="btn-classify" data-item-id="item-4" data-target-cat="logica" aria-label="Clasificar Primera Forma Normal (1FN) en la categoría A, Diseño lógico">        <span class="btn-tag" aria-hidden="true">A</span> Diseño lógico      </button>      <button type="button" class="btn-classify" data-item-id="item-4" data-target-cat="fisica" aria-label="Clasificar Primera Forma Normal (1FN) en la categoría B, Implementación física">        <span class="btn-tag" aria-hidden="true">B</span> Implementación física      </button>    </div>  </div>  <div class="item-feedback" id="fb-item-4" role="status" aria-live="polite" hidden></div></article><article class="drag-item-card" id="card-item-5" data-item-id="item-5">  <upao-drag-item item-id="item-5" category="fisica">    <div class="drag-item-content">      <p class="drag-item-term">Particionamiento de tabla</p>      <p class="drag-item-hint">Divide una tabla en segmentos físicos para mejorar el rendimiento de consultas.</p>    </div>  </upao-drag-item>  <div class="item-actions" role="group" aria-label="Clasificar Particionamiento de tabla">    <span class="action-prompt">O clasifica directamente:</span>    <div class="action-buttons">      <button type="button" class="btn-classify" data-item-id="item-5" data-target-cat="logica" aria-label="Clasificar Particionamiento de tabla en la categoría A, Diseño lógico">        <span class="btn-tag" aria-hidden="true">A</span> Diseño lógico      </button>      <button type="button" class="btn-classify" data-item-id="item-5" data-target-cat="fisica" aria-label="Clasificar Particionamiento de tabla en la categoría B, Implementación física">        <span class="btn-tag" aria-hidden="true">B</span> Implementación física      </button>    </div>  </div>  <div class="item-feedback" id="fb-item-5" role="status" aria-live="polite" hidden></div></article><article class="drag-item-card" id="card-item-6" data-item-id="item-6">  <upao-drag-item item-id="item-6" category="logica">    <div class="drag-item-content">      <p class="drag-item-term">Segunda Forma Normal (2FN)</p>      <p class="drag-item-hint">Elimina dependencias parciales, requiriendo dependencia total de la llave primaria.</p>    </div>  </upao-drag-item>  <div class="item-actions" role="group" aria-label="Clasificar Segunda Forma Normal (2FN)">    <span class="action-prompt">O clasifica directamente:</span>    <div class="action-buttons">      <button type="button" class="btn-classify" data-item-id="item-6" data-target-cat="logica" aria-label="Clasificar Segunda Forma Normal (2FN) en la categoría A, Diseño lógico">        <span class="btn-tag" aria-hidden="true">A</span> Diseño lógico      </button>      <button type="button" class="btn-classify" data-item-id="item-6" data-target-cat="fisica" aria-label="Clasificar Segunda Forma Normal (2FN) en la categoría B, Implementación física">        <span class="btn-tag" aria-hidden="true">B</span> Implementación física      </button>    </div>  </div>  <div class="item-feedback" id="fb-item-6" role="status" aria-live="polite" hidden></div></article><article class="drag-item-card" id="card-item-7" data-item-id="item-7">  <upao-drag-item item-id="item-7" category="logica">    <div class="drag-item-content">      <p class="drag-item-term">Tercera Forma Normal (3FN)</p>      <p class="drag-item-hint">Elimina dependencias transitivas, asegurando que los atributos dependan solo de la llave.</p>    </div>  </upao-drag-item>  <div class="item-actions" role="group" aria-label="Clasificar Tercera Forma Normal (3FN)">    <span class="action-prompt">O clasifica directamente:</span>    <div class="action-buttons">      <button type="button" class="btn-classify" data-item-id="item-7" data-target-cat="logica" aria-label="Clasificar Tercera Forma Normal (3FN) en la categoría A, Diseño lógico">        <span class="btn-tag" aria-hidden="true">A</span> Diseño lógico      </button>      <button type="button" class="btn-classify" data-item-id="item-7" data-target-cat="fisica" aria-label="Clasificar Tercera Forma Normal (3FN) en la categoría B, Implementación física">        <span class="btn-tag" aria-hidden="true">B</span> Implementación física      </button>    </div>  </div>  <div class="item-feedback" id="fb-item-7" role="status" aria-live="polite" hidden></div></article>
-    </div>
-  </section>
-</div>
-
-<upao-summary title="Síntesis de Clasificación">
-  <p>El diseño lógico define la estructura e integridad; la implementación física optimiza el almacenamiento y acceso. Ambos son complementarios: el lógico garantiza consistencia, el físico eficiencia.</p>
-  <upao-complete slot="actions" label="Finalizar exploración" locked></upao-complete>
+<upao-summary title="Síntesis del mecanismo">
+  <p>El tablespace es lógico; los datafiles son físicos. Crear objetos consume extents y bloques en los datafiles, visible en vistas del diccionario.</p>
+  <upao-complete slot="actions" label="Finalizar laboratorio" locked></upao-complete>
 </upao-summary>
 
-<script type="application/json" id="drag-game-data">{"categoria_a": {"id": "logica", "nombre": "Diseño lógico", "descripcion": "Elementos que definen estructura, integridad y organización de datos en tablas."}, "categoria_b": {"id": "fisica", "nombre": "Implementación física", "descripcion": "Aspectos de almacenamiento, rendimiento y optimización del SGBD."}, "items": {"item-1": {"id": "item-1", "texto": "Llave primaria", "contexto": "Identifica de forma única cada fila de una tabla en el modelo relacional.", "categoria": "logica", "feedback": "Define la identidad de cada registro, esencial en el diseño lógico."}, "item-2": {"id": "item-2", "texto": "Llave foránea", "contexto": "Establece relación entre tablas, referenciando la llave primaria de otra tabla.", "categoria": "logica", "feedback": "Mantiene la integridad referencial, parte del diseño lógico."}, "item-3": {"id": "item-3", "texto": "Índice agrupado", "contexto": "Ordena físicamente los datos en disco para acelerar búsquedas por llave primaria.", "categoria": "fisica", "feedback": "Afecta el almacenamiento y acceso, no la estructura lógica."}, "item-4": {"id": "item-4", "texto": "Primera Forma Normal (1FN)", "contexto": "Elimina grupos repetitivos y garantiza atomicidad en cada atributo de la tabla.", "categoria": "logica", "feedback": "Normalización estructural, regla del diseño lógico."}, "item-5": {"id": "item-5", "texto": "Particionamiento de tabla", "contexto": "Divide una tabla en segmentos físicos para mejorar el rendimiento de consultas.", "categoria": "fisica", "feedback": "Estrategia de almacenamiento físico, no afecta la lógica de datos."}, "item-6": {"id": "item-6", "texto": "Segunda Forma Normal (2FN)", "contexto": "Elimina dependencias parciales, requiriendo dependencia total de la llave primaria.", "categoria": "logica", "feedback": "Regla de normalización que reduce redundancia en el diseño."}, "item-7": {"id": "item-7", "texto": "Tercera Forma Normal (3FN)", "contexto": "Elimina dependencias transitivas, asegurando que los atributos dependan solo de la llave.", "categoria": "logica", "feedback": "Nivel de normalización que previene anomalías de actualización."}}, "total": 7}</script>
+<script type="application/json" id="ova-data">{"titulo": "Tablespaces y datafiles en Oracle", "objetivo": "Distinguir estructura lógica y física del almacenamiento Oracle creando un tablespace.", "concepto_mecanismo": "Un tablespace agrupa segmentos lógicos sobre datafiles físicos. Crear, extender o asignar cambia la ocupación y la relación entre ambos niveles.", "componentes": [{"nombre": "Tablespace", "estado_inicial": "Vacío, sin segmentos"}, {"nombre": "Segmento", "estado_inicial": "No asignado a usuario"}, {"nombre": "Extent", "estado_inicial": "Sin reservar en datafile"}, {"nombre": "Datafile", "estado_inicial": "Libre, sin bloques usados"}], "metricas": [{"nombre": "Bloques usados", "inicial": 0}, {"nombre": "Extents asignados", "inicial": 0}, {"nombre": "Segmentos creados", "inicial": 0}], "controles": [{"id": "crear-tablespace", "accion": "Crear tablespace", "descripcion": "Crea un tablespace con un datafile inicial de 10MB y un extent de 64KB.", "componente": 1, "nuevo_estado": "Creado, con datafile", "cambios": [0, 0, 0], "resultado": "Tablespace creado en estado ONLINE; el datafile queda asociado pero sin segmentos asignados."}, {"id": "asignar-segmento", "accion": "Crear segmento tabla", "descripcion": "Crea una tabla (segmento) en el tablespace para el usuario PRACTICA.", "componente": 2, "nuevo_estado": "Asignado a usuario", "cambios": [8, 1, 1], "resultado": "La tabla ocupa 8 bloques iniciales y reserva 1 extent de 64KB en el datafile."}, {"id": "agregar-extent", "accion": "Agregar extent", "descripcion": "Inserta filas que fuerzan al segmento a solicitar un extent adicional.", "componente": 3, "nuevo_estado": "Extent reservado", "cambios": [8, 1, 0], "resultado": "El segmento suma 8 bloques más, ocupando un nuevo extent contiguo en el mismo datafile."}, {"id": "consultar-ocupacion", "accion": "Consultar DBA_DATA_FILES", "descripcion": "Ejecuta consulta de ocupación en DBA_DATA_FILES y DBA_SEGMENTS.", "componente": 4, "nuevo_estado": "Bloques marcados usados", "cambios": [0, 0, 0], "resultado": "Muestra 16 bloques usados en el datafile y 2 extents asignados al segmento creado."}], "ejemplo_trabajado": "Crear tablespace → crear segmento tabla → agregar extent. Tras tres acciones: bloques usados=16, extents=2, segmentos=1; el datafile muestra ocupación real.", "sintesis": "El tablespace es lógico; los datafiles son físicos. Crear objetos consume extents y bloques en los datafiles, visible en vistas del diccionario."}</script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 (function(){
@@ -462,134 +202,95 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-const rawDataEl = document.getElementById('drag-game-data');
-if (!rawDataEl) return;
-let gameData = {};
-try {
-  gameData = JSON.parse(rawDataEl.textContent);
-} catch (err) {
-  return;
-}
+(function () {
+  const data = JSON.parse(document.getElementById('ova-data').textContent);
+  const comps = data.componentes || [];
+  const mets = data.metricas || [];
+  const ctrls = data.controles || [];
+  const progEl = document.getElementById('prog');
+  const total = progEl ? parseInt(progEl.getAttribute('total') || '3', 10) : 3;
+  const statusEl = document.getElementById('lab-status');
+  const iterBadge = document.getElementById('iter-badge');
+  const logEl = document.getElementById('lab-log');
+  let states, values, done;
 
-const catA = gameData.categoria_a || {};
-const catB = gameData.categoria_b || {};
-const itemsMap = gameData.items || {};
-const totalItems = gameData.total || 0;
+  function clampComp(n) {
+    const idx = (parseInt(n, 10) || 1) - 1;
+    return Math.min(Math.max(idx, 0), comps.length - 1);
+  }
 
-const scoreEl = document.getElementById('score');
-const statusEl = document.getElementById('status');
-const poolCounter = document.getElementById('pool-counter');
-const resolvedItems = new Set();
-const ptsPerItem = 10;
+  function reset() {
+    states = comps.map(function (c) { return c.estado_inicial; });
+    values = mets.map(function (m) { return parseInt(m.inicial, 10) || 0; });
+    done = 0;
+    paint(-1);
+  }
 
-function classifyItem(itemId, targetCat) {
-  if (resolvedItems.has(itemId)) return;
-  const item = itemsMap[itemId];
-  if (!item) return;
+  function paint(active) {
+    comps.forEach(function (_, i) {
+      const el = document.getElementById('lab-comp-' + i);
+      if (!el) return;
+      el.setAttribute('data-active', i === active ? 'true' : 'false');
+      el.querySelector('.lab-comp-state').textContent = states[i];
+    });
+    mets.forEach(function (_, j) {
+      const el = document.getElementById('lab-metric-' + j);
+      if (el) el.textContent = String(values[j]);
+    });
+    if (iterBadge) iterBadge.textContent = 'Iteración: ' + Math.min(done, total) + ' de ' + total;
+  }
 
-  const card = document.getElementById('card-' + itemId);
-  const fbEl = document.getElementById('fb-' + itemId);
-  const dragItemEl = card ? card.querySelector('upao-drag-item') : null;
-  const isCorrect = (item.categoria === targetCat);
+  function log(text) {
+    if (!logEl) return;
+    const li = document.createElement('li');
+    li.textContent = '[' + String(done).padStart(2, '0') + '] ' + text;
+    logEl.appendChild(li);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
 
-  if (isCorrect) {
-    resolvedItems.add(itemId);
-    if (dragItemEl && typeof dragItemEl.matched === 'function') {
-      dragItemEl.matched();
-    }
-    if (card) {
-      card.classList.add('is-matched');
-      const btns = card.querySelectorAll('.btn-classify');
-      btns.forEach(function (b) { b.disabled = true; });
-    }
-    if (fbEl) {
-      fbEl.hidden = false;
-      fbEl.className = 'item-feedback item-feedback--ok';
-      fbEl.textContent = '✓ ' + item.feedback;
-    }
-
-    const listEl = document.getElementById('list-' + targetCat);
-    if (listEl) {
-      const li = document.createElement('li');
-      li.className = 'classified-item';
-      const badge = document.createElement('span');
-      badge.className = 'item-ok-badge';
-      badge.textContent = '✓';
-      const txtDiv = document.createElement('div');
-      const termSpan = document.createElement('strong');
-      termSpan.textContent = item.texto;
-      txtDiv.appendChild(termSpan);
-      txtDiv.appendChild(document.createTextNode(' — ' + item.feedback));
-      li.appendChild(badge);
-      li.appendChild(txtDiv);
-      listEl.appendChild(li);
-    }
-
-    if (scoreEl && typeof scoreEl.add === 'function') {
-      scoreEl.add(ptsPerItem);
-    }
-
-    const catName = (targetCat === catA.id) ? catA.nombre : catB.nombre;
+  function run(k) {
+    const c = ctrls[k];
+    if (!c) return;
+    const ci = clampComp(c.componente);
+    states[ci] = c.nuevo_estado;
+    mets.forEach(function (_, j) {
+      const delta = parseInt((c.cambios || [])[j], 10) || 0;
+      values[j] = Math.max(0, values[j] + delta);
+    });
+    done++;
+    if (done <= total) window.ovaMark('iter-' + done);
+    paint(ci);
+    log(c.accion + ' → ' + c.resultado);
     if (statusEl) {
-      statusEl.setAttribute('state', 'success');
-      statusEl.textContent = '¡Correcto! «' + item.texto + '» clasificado en ' + catName + '.';
-    }
-
-    if (poolCounter) {
-      const remaining = totalItems - resolvedItems.size;
-      poolCounter.textContent = remaining > 0 ? ('Pendientes: ' + remaining + ' de ' + totalItems) : '¡Todos los elementos clasificados!';
-    }
-
-    if (typeof window.ovaMark === 'function') {
-      window.ovaMark('item-' + itemId);
-    }
-
-    if (resolvedItems.size >= totalItems && statusEl) {
-      statusEl.setAttribute('state', 'success');
-      statusEl.textContent = '¡Completado! Has clasificado todos los elementos correctamente.';
-    }
-  } else {
-    if (dragItemEl && typeof dragItemEl.wrong === 'function') {
-      dragItemEl.wrong();
-    }
-    if (card) {
-      card.classList.add('is-shake');
-      setTimeout(function () { card.classList.remove('is-shake'); }, 600);
-    }
-    if (fbEl) {
-      fbEl.hidden = false;
-      fbEl.className = 'item-feedback item-feedback--bad';
-      fbEl.textContent = '✗ No corresponde a esta categoría. ' + item.contexto;
-    }
-
-    const wrongCatName = (targetCat === catA.id) ? catA.nombre : catB.nombre;
-    if (statusEl) {
-      statusEl.setAttribute('state', 'error');
-      statusEl.textContent = '«' + item.texto + '» no pertenece a ' + wrongCatName + '. Inténtalo de nuevo.';
+      if (done >= total) {
+        statusEl.setAttribute('state', 'success');
+        statusEl.textContent = '¡Meta completada (' + total + ' iteraciones)! ' + c.resultado + ' Revisa la síntesis para continuar.';
+      } else {
+        statusEl.setAttribute('state', 'info');
+        statusEl.textContent = c.resultado;
+      }
     }
   }
-}
 
-document.querySelectorAll('.btn-classify').forEach(function (btn) {
-  btn.addEventListener('click', function () {
-    const itemId = btn.getAttribute('data-item-id');
-    const targetCat = btn.getAttribute('data-target-cat');
-    if (itemId && targetCat) {
-      classifyItem(itemId, targetCat);
-    }
+  document.querySelectorAll('.ova-action-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { run(parseInt(btn.getAttribute('data-idx') || '0', 10)); });
   });
-});
-
-document.addEventListener('upao-drop', function (e) {
-  const detail = e.detail || {};
-  const itemId = detail.itemId;
-  const zone = e.target;
-  const targetCat = (zone && typeof zone.getAttribute === 'function' ? zone.getAttribute('accepts') : '') ||
-    (detail.zoneId === 'zone-' + catA.id ? catA.id : catB.id);
-  if (itemId && targetCat) {
-    classifyItem(itemId, targetCat);
+  const resetBtn = document.getElementById('btn-reset-lab');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      const keep = done;
+      reset();
+      done = keep;
+      paint(-1);
+      log('Estado visual reiniciado (tu progreso se conserva).');
+      if (statusEl) {
+        statusEl.setAttribute('state', 'info');
+        statusEl.textContent = 'Estado reiniciado. Vuelve a ejecutar las acciones y compara los contadores.';
+      }
+    });
   }
-});
+  reset();
+})();
 });
 </script>
 
@@ -674,14 +375,6 @@ document.addEventListener('upao-drop', function (e) {
     return /^(?:data:image\/|https?:\/\/|\/|\.\/)/i.test(src) ? src : '';
   };
 
-  /* Los atributos de texto nunca se vuelven marcado: getAttribute() devuelve el
-     valor ya decodificado (el esc() de la plantilla se deshace), así que todo
-     atributo que se interpola en innerHTML pasa por aquí. El contenido rico va
-     en slots. Los iconos (`icon`) son SVG de la plantilla y se insertan tal cual. */
-  const text = value => String(value ?? '').replace(/[&<>"']/g, c => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[c]));
-
   /* ── Base class ─────────────────────────────────────────────────────── */
   class UE extends HTMLElement {
     constructor() { super(); this.attachShadow({ mode: 'open' }); }
@@ -728,12 +421,12 @@ ${s}
       `) + `
       <div class="card">
         <div class="head">
-          ${eyebrow ? `<p class="eyebrow">${text(eyebrow)}</p>` : ''}
+          ${eyebrow ? `<p class="eyebrow">${eyebrow}</p>` : ''}
           <div class="title-row">
             ${icon ? `<span class="icon" aria-hidden="true">${icon}</span>` : ''}
-            ${title ? `<h1 class="title">${text(title)}</h1>` : ''}
+            ${title ? `<h1 class="title">${title}</h1>` : ''}
           </div>
-          ${subtitle ? `<p class="subtitle">${text(subtitle)}</p>` : ''}
+          ${subtitle ? `<p class="subtitle">${subtitle}</p>` : ''}
         </div>
         <div class="body"><slot></slot></div>
       </div>`;
@@ -776,10 +469,10 @@ ${s}
       `) + `
       <div class="wrap"${open ? ' open' : ''} role="group">
         <div class="head" role="button" tabindex="0" aria-expanded="${open}">
-          <span class="num">${text(num)}</span>
+          <span class="num">${num}</span>
           <div class="titles">
-            ${label ? `<p class="t-label">${text(label)}</p>` : ''}
-            <p class="t-title">${text(title)}</p>
+            ${label ? `<p class="t-label">${label}</p>` : ''}
+            <p class="t-title">${title}</p>
           </div>
           <span class="chevron" aria-hidden="true">▼</span>
         </div>
@@ -830,11 +523,11 @@ ${s}
         .btn.wrong .fb{display:block;background:${T.dangerBg};color:var(--danger,#991b1b)}
         .status{font-size:1rem;margin-left:auto;flex-shrink:0}
       `) + `
-      <button class="btn" type="button" data-group="${text(group)}" data-correct="${correct}">
-        <span class="badge">${text(val)}</span>
+      <button class="btn" type="button" data-group="${group}" data-correct="${correct}">
+        <span class="badge">${val}</span>
         <div class="text">
           <span class="main-text"><slot></slot></span>
-          ${feedback ? `<div class="fb" role="alert">${text(feedback)}</div>` : ''}
+          ${feedback ? `<div class="fb" role="alert">${feedback}</div>` : ''}
         </div>
         <span class="status" aria-hidden="true"></span>
       </button>`;
@@ -886,7 +579,7 @@ ${s}
         .inner{padding:16px 18px;background:${T.accentTint};border-radius:${T.radiusSm};
           border-left:4px solid ${T.accent};font-size:.95rem;line-height:1.65;color:${T.text}}
       `) + `
-      <button class="btn" aria-expanded="false">${icon} <span>${text(label)}</span></button>
+      <button class="btn" aria-expanded="false">${icon} <span>${label}</span></button>
       <div class="body" role="region"><div class="inner"><slot></slot></div></div>`;
       const btn  = this.$('.btn');
       const body = this.$('.body');
@@ -928,9 +621,9 @@ ${s}
           transition:background .3s,transform .25s ${T.ease}}
         .dot.done{background:${T.accent};transform:scale(1.2)}
       `) + `
-      <div class="wrap" role="progressbar" aria-valuemin="0" aria-valuemax="${this._total}" aria-valuenow="${this._cur}" aria-label="${text(label)}">
+      <div class="wrap" role="progressbar" aria-valuemin="0" aria-valuemax="${this._total}" aria-valuenow="${this._cur}" aria-label="${label}">
         <div class="row">
-          <span class="lbl">${text(label)}</span>
+          <span class="lbl">${label}</span>
           ${showF ? `<span class="frac"><span id="cn">${this._cur}</span>/${this._total}</span>` : ''}
         </div>
         <div class="track"><div class="fill" id="fill"></div></div>
@@ -979,9 +672,9 @@ ${s}
         .time.danger{color:${T.danger};animation:upao-pulse .8s infinite}
         .icon{font-size:1.1rem}
       `) + `
-      <div class="wrap" role="timer" aria-live="off" aria-label="${text(label)}">
+      <div class="wrap" role="timer" aria-live="off" aria-label="${label}">
         <span class="icon" aria-hidden="true">${ICON.clock}</span>
-        <div><div class="lbl">${text(label)}</div><div class="time" id="t">${this._fmt(this._rem)}</div></div>
+        <div><div class="lbl">${label}</div><div class="time" id="t">${this._fmt(this._rem)}</div></div>
       </div>`;
       const tick = () => {
         const elapsed = (Date.now() - this._start) / 1000;
@@ -1022,10 +715,10 @@ ${s}
           color:#fff;text-align:right;animation:upao-count-up .25s ${T.ease}}
         .max{font-size:.85rem;font-weight:600}
       `) + `
-      <div class="wrap" role="status" aria-live="polite" aria-label="${text(label)}: ${this._val} de ${text(max)}">
+      <div class="wrap" role="status" aria-live="polite" aria-label="${label}: ${this._val} de ${max}">
         <span aria-hidden="true">${ICON.trophy}</span>
-        <div class="lbl">${text(label)}</div>
-        <div class="fig"><span class="val" id="v">${this._val}</span><span class="max">/ ${text(max)}</span></div>
+        <div class="lbl">${label}</div>
+        <div class="fig"><span class="val" id="v">${this._val}</span><span class="max">/ ${max}</span></div>
       </div>`;
       this.set = (n) => {
         this._val = n;
@@ -1071,11 +764,11 @@ ${s}
         .dot.done{background:${T.accent}}
       `) + `
       <nav class="nav" aria-label="Navegación de pasos">
-        <button class="btn prev" id="prev" aria-label="${text(pLbl)}">${text(pLbl)}</button>
+        <button class="btn prev" id="prev" aria-label="${pLbl}">${pLbl}</button>
         <div class="dots" role="list" aria-label="Pasos">${Array.from({ length: this._total }, (_, i) =>
           `<div class="dot${i + 1 === this._cur ? ' active' : i + 1 < this._cur ? ' done' : ''}" data-i="${i + 1}" role="listitem" aria-label="Paso ${i + 1}"></div>`
         ).join('')}</div>
-        <button class="btn next" id="next" aria-label="${text(nLbl)}">${text(nLbl)}</button>
+        <button class="btn next" id="next" aria-label="${nLbl}">${nLbl}</button>
       </nav>`;
       const upd = () => {
         this.$('#prev').disabled = this._cur <= 1;
@@ -1138,12 +831,12 @@ ${s}
           border-top:none}
       `) + `
       <div class="panel" role="figure">
-        <div class="num-badge" aria-label="Panel ${text(num)}">${text(num)}</div>
+        <div class="num-badge" aria-label="Panel ${num}">${num}</div>
         <div class="img-wrap">
           <slot name="art"></slot>
-          ${hasArt ? '' : src ? `<img src="${text(src)}" alt="${text(alt)}" loading="lazy">` : `<div class="no-img" aria-hidden="true">${ICON.bot}</div>`}
+          ${hasArt ? '' : src ? `<img src="${src}" alt="${alt}" loading="lazy">` : `<div class="no-img" aria-hidden="true">${ICON.bot}</div>`}
         </div>
-        <p class="char-label">${text(char)}</p>
+        <p class="char-label">${char}</p>
         <div class="bubble"><slot></slot></div>
       </div>`;
     }
@@ -1198,20 +891,20 @@ ${s}
       <div class="card">
         <div class="head">
           <span class="mic" aria-hidden="true">${ICON.mic}</span>
-          <div><div class="htitle">Micro-Podcast</div><div class="hsub">${text(concept)}</div></div>
+          <div><div class="htitle">Micro-Podcast</div><div class="hsub">${concept}</div></div>
         </div>
         <div class="body">
-          ${src ? `<audio id="aud" src="${text(src)}" preload="auto"></audio>` : ''}
+          ${src ? `<audio id="aud" src="${src}" preload="auto"></audio>` : ''}
           <div class="wave" id="wave">${bars}</div>
           <div class="controls">
-            <button class="btn play" id="play">${ICON.play} Reproducir</button>
+            <button class="btn play" id="play" aria-label="Reproducir">${ICON.play} Reproducir</button>
             <button class="btn ghost" id="rep" aria-label="Repetir">↺ Repetir</button>
           </div>
           ${src ? `<div class="track" id="track" role="slider" aria-label="Progreso del audio" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <div class="fill" id="fill"></div>
           </div>
           <div class="times"><span id="cur">0:00</span><span id="dur">0:00</span></div>` : ''}
-          ${transcript ? `<div class="transcript" role="note">${text(transcript)}</div>` : ''}
+          ${transcript ? `<div class="transcript" role="note">${transcript}</div>` : ''}
           <p class="status" id="st" aria-live="polite"></p>
         </div>
       </div>`;
@@ -1264,9 +957,7 @@ ${s}
       // y creaba un segundo foco interactivo dentro del botón de la plantilla.
       if (!this.hasAttribute('role')) this.setAttribute('role', 'button');
       if (!this.hasAttribute('tabindex')) this.tabIndex = 0;
-      // El nombre accesible sale del contenido visible (WCAG 2.5.3); el item-id
-      // es un identificador interno y solo se usa si el elemento no tiene texto.
-      if (!this.hasAttribute('aria-label') && !this.textContent.trim()) this.setAttribute('aria-label', 'Elemento ' + id);
+      if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', 'Elemento: ' + id);
       this.shadowRoot.innerHTML = this.css(`
         .item{padding:11px 16px;border:2px solid ${T.border};border-radius:${T.radiusSm};
           background:${T.surface};cursor:grab;font-size:.93rem;font-weight:500;
@@ -1282,7 +973,7 @@ ${s}
           animation:upao-shake .3s ${T.ease}}
         .grip{color:${T.muted};font-size:.9rem;cursor:grab}
       `) + `
-      <div class="item" draggable="true" data-id="${text(id)}" data-cat="${text(cat)}">
+      <div class="item" draggable="true" data-id="${id}" data-cat="${cat}">
         <span class="grip" aria-hidden="true">⠿</span>
         <slot></slot>
       </div>`;
@@ -1322,8 +1013,8 @@ ${s}
         .hint{font-size:.75rem;color:${T.muted}}
         .dropped{font-size:.9rem;color:${T.text};font-weight:500}
       `) + `
-      <div class="zone" role="region" aria-label="Zona: ${text(label)}" aria-dropeffect="move">
-        <div class="lbl">${text(label)}</div>
+      <div class="zone" role="region" aria-label="Zona: ${label}" aria-dropeffect="move">
+        <div class="lbl">${label}</div>
         <div class="hint" id="hint">Arrastra aquí</div>
         <div class="dropped" id="dropped" hidden></div>
       </div>`;
@@ -1371,8 +1062,8 @@ ${s}
         .hint{font-size:.78rem;color:${T.muted};margin-top:8px}
       `) + `
       <div class="wrap">
-        <button class="btn" id="btn"${locked ? ' disabled' : ''}>
-          <span id="icon" aria-hidden="true">${ICON.flag}</span> <span id="lbl">${text(label)}</span>
+        <button class="btn" id="btn"${locked ? ' disabled' : ''} aria-label="${label}">
+          <span id="icon" aria-hidden="true">${ICON.flag}</span> <span id="lbl">${label}</span>
         </button>
         ${locked ? `<p class="hint" id="hint" aria-live="polite">Completa la actividad para continuar</p>` : ''}
       </div>`;
@@ -1403,6 +1094,10 @@ ${s}
     }
   }
 
+  /* Text attributes never become markup; rich content belongs in slots. */
+  const text = value => String(value ?? '').replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
   const PANEL_CSS = `
     .panel{padding:clamp(16px,4vw,24px);background:${T.surface};border:1px solid ${T.border};border-radius:${T.radius}}
     h2,legend{font-family:${T.fontDisp};font-size:clamp(1.1rem,3vw,1.35rem);line-height:1.3;color:${T.primary};font-weight:700}
